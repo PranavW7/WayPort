@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  WayPortRDSCluster:
+    Type: "AWS::RDS::DBCluster"
+    Properties:
+      DatabaseName: WayPortResults
+      Engine: aurora-mysql
+      EngineVersion: 5.7
+      MasterUsername: WayPortUser
+      MasterUserPassword: Akyucst898465
+      Port: '3306'
+      BackupRetentionPeriod: 7
+      PreferredBackupWindow: '02:00-03:00'
+    
+  AuroraDBInstance1:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: aurora1
+      Engine: aurora-mysql
+      EngineVersion: 5.7
+      DBClusterIdentifier: !Ref WayPortRDSCluster
+      PubliclyAccessible: true
+      DBInstanceClass: db.t2.medium
+
+  AuroraDBInstance2:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: aurora2
+      Engine: aurora-mysql
+      EngineVersion: 5.7
+      DBClusterIdentifier: !Ref WayPortRDSCluster
+      PubliclyAccessible: true
+      DBInstanceClass: db.t2.medium
